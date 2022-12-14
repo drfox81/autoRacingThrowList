@@ -34,6 +34,7 @@ public class Main {
         sponsorOmega.support(kamaz, 50000, sponsorOmega);
         sponsorOmega.support(ladaKalina, 30000, sponsorOmega);
 
+
         Transport.printDriverTransport(kamaz);
         System.out.println(kamaz.printType());
         Mechanic demidovI = new Mechanic<>("Демидов", "Иван", "ООО Техник",
@@ -47,14 +48,25 @@ public class Main {
         ServiceStation.addQueue(ladaKalina);
         ServiceStation.addQueue(bmw5);
         ServiceStation.addQueue(kamaz);
-        //ladaKalina.getListMechanicTransport().get(0).
-        System.out.println(Mechanic.getListMechanic().get(0).getFirstName());
-        //ladaKalina.getListMechanicTransport().get(0);
-        //ladaKalina.getListMechanicTransport().get(0).
+
         ServiceStation<Transport, Mechanic> serviceStation = new ServiceStation<>();
         System.out.println(ServiceStation.getQueue().size());
         serviceStation.spendTO();
         System.out.println(ServiceStation.getQueue().size());
+        System.out.println("\n");
+        System.out.println("+++++++++++++++Домашнее задание 3 задание 1+++++++++++++++");
+        Sponsor sponsorOmega1 = new Sponsor("ООО Омега");
+        Sponsor.printAllSponsors();
+        Car ladaKalina1 = new Car("Lada", "Kalina", "бензин", "седан");
+        Transport.printAllTransport();
+        DrC fedorovCramaz1 = new DrC("Федоров Федор Федорович", 6, kamaz, Dr.DL_C);
+        Dr.printAllDrivers();
+        Mechanic demidovI1 = new Mechanic<>("Демидов", "Иван", "ООО Техник",
+                TypeTransport.CAR);
+        Mechanic.printAllMechanic();
+
+
+
 
 
 //

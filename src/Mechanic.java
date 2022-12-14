@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Mechanic<T extends Transport> {
     private String firstName;// Фамилия
@@ -6,9 +9,9 @@ public class Mechanic<T extends Transport> {
     private String companyName;// название компании
     private TypeTransport type;//тип ТС
     private ArrayList<Transport> listTransport = new ArrayList<>();// список транспорта механика
-    private static ArrayList<Mechanic> listMechanic = new ArrayList<>();
+    private static Set<Mechanic> listMechanic = new HashSet<>();
 
-    public static ArrayList<Mechanic> getListMechanic() {
+    public static Set<Mechanic> getListMechanic() {
         return listMechanic;
     }
 
@@ -58,8 +61,8 @@ public class Mechanic<T extends Transport> {
 
     //вывод списка всех механиков
     public static void printAllMechanic() {
-        for (int i = 0; i < Mechanic.getListMechanic().size(); i++) {
-            System.out.println(Mechanic.getListMechanic().get(i));
+        for (Mechanic mechanic : listMechanic) {
+            System.out.println(mechanic);
         }
     }
 
@@ -115,6 +118,19 @@ public class Mechanic<T extends Transport> {
 
     @Override
     public String toString() {
-        return firstName + " " + secondName;
+        return firstName + " " + secondName+" "+ companyName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mechanic<?> mechanic = (Mechanic<?>) o;
+        return Objects.equals(firstName, mechanic.firstName) && Objects.equals(secondName, mechanic.secondName) && Objects.equals(companyName, mechanic.companyName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, secondName, companyName);
     }
 }

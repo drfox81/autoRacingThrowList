@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Transport<S extends Sponsor, D extends Dr> implements GeneralMethods {
     private boolean diagnostic; // false нуждается в ТО, true прошел ТО
-    private static ArrayList<Transport> allAuto = new ArrayList<>();
+    private static Set<Transport> allAuto = new HashSet<>();
     private ArrayList<S> sponsorTransport = new ArrayList<>();
     private ArrayList<Mechanic> listMechanicTransport=new ArrayList<>();
 
@@ -50,7 +48,7 @@ public abstract class Transport<S extends Sponsor, D extends Dr> implements Gene
         this.sponsorSum = sponsorSum;
     }
 
-    public static ArrayList<Transport> getAllAuto() {
+    public static Set<Transport> getAllAuto() {
         return allAuto;
     }
 
@@ -84,8 +82,8 @@ public abstract class Transport<S extends Sponsor, D extends Dr> implements Gene
 
     //принт всех транспортных средств
     public static void printAllTransport() {
-        for (int i = 0; i < Transport.getAllAuto().size(); i++) {
-            System.out.println(Transport.getAllAuto().get(i));
+        for (Transport transport : allAuto) {
+            System.out.println(transport);
         }
     }
 
@@ -163,11 +161,11 @@ public abstract class Transport<S extends Sponsor, D extends Dr> implements Gene
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transport<?, ?> transport = (Transport<?, ?>) o;
-        return Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model);
+        return Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model) && typeTransport == transport.typeTransport;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brand, model);
+        return Objects.hash(brand, model, typeTransport);
     }
 }

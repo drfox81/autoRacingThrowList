@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Dr <T extends Transport> implements GeneralMethods {
+public abstract class Dr<T extends Transport> implements GeneralMethods {
     private String nameDriver;
     private String driverLicense;
     public static final String DL_B = "Права категория В";
@@ -11,9 +13,9 @@ public abstract class Dr <T extends Transport> implements GeneralMethods {
     public static final String DL_D = "Права категория D";
     private int experience;
     private T car;
-    private static ArrayList<Dr> allDriver=new ArrayList<>();
+    private static Set<Dr> allDriver = new HashSet<>();
 
-    public static ArrayList<Dr> getAllDriver() {
+    public static Set<Dr> getAllDriver() {
         return allDriver;
     }
 
@@ -25,22 +27,24 @@ public abstract class Dr <T extends Transport> implements GeneralMethods {
         setNameDriver(nameDriver);
         setDriverLicense(driverLicense);
         setExperience(experience);
-        this.car=car;
+        this.car = car;
         this.car.setDriver(this);
         Dr.getAllDriver().add(this);//добавляем в список всех водителей
 
     }
+
     // вывод списка всех водителей
-    public static void printAllDrivers(){
-        for (int i = 0; i < Dr.getAllDriver().size(); i++) {
-            System.out.println(Dr.getAllDriver().get(i));
+    public static void printAllDrivers() {
+        for (Dr dr : allDriver) {
+            System.out.println(dr);
         }
     }
+
     public Dr(String nameDriver, int experience, T car) {
         setNameDriver(nameDriver);
         setDriverLicense(driverLicense);
         setExperience(experience);
-        this.car=car;
+        this.car = car;
     }
 
     public String getNameDriver() {
@@ -121,4 +125,16 @@ public abstract class Dr <T extends Transport> implements GeneralMethods {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dr<?> dr = (Dr<?>) o;
+        return Objects.equals(nameDriver, dr.nameDriver) && Objects.equals(driverLicense, dr.driverLicense);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nameDriver, driverLicense);
+    }
 }

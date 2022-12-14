@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Sponsor<T extends Transport> {
     private String name;// имя спонсора
     private int sum;// сумма спонсирования
-    private static ArrayList<Sponsor> allSponsor = new ArrayList<>(); //все объявленные спонсоры
+    private static Set<Sponsor> allSponsor = new HashSet<>(); //все объявленные спонсоры
     public Sponsor(String name) {
         this.name = name;
         Sponsor.getAllSponsor().add(this);//записываем споносра в список спонсоров
@@ -11,12 +14,12 @@ public class Sponsor<T extends Transport> {
 
     //вывод списка всех спонсоров
     public static void printAllSponsors() {
-        for (int i = 0; i < Sponsor.getAllSponsor().size(); i++) {
-            System.out.println(Sponsor.getAllSponsor().get(i));
+        for (Sponsor sponsor : allSponsor) {
+            System.out.println(sponsor);
         }
     }
 
-    public static ArrayList<Sponsor> getAllSponsor() {
+    public static Set<Sponsor> getAllSponsor() {
         return allSponsor;
     }
 
@@ -52,5 +55,18 @@ public class Sponsor<T extends Transport> {
                 ", sum=" + sum +
                 ", allTransport=" +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sponsor<?> sponsor = (Sponsor<?>) o;
+        return Objects.equals(name, sponsor.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
